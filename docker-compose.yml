@@ -1,0 +1,34 @@
+version: '3.7'
+services:
+  solr:
+    container_name: solr
+    image: solr:8.0
+    environment:
+      VIRTUAL_HOST: ${SOLR_VIRTUAL_HOST}
+      VIRTUAL_PORT: 8983
+      NETWORK_ACCESS: internal
+      LETSENCRYPT_HOST: ${SOLR_VIRTUAL_HOST}
+      LETSENCRYPT_MAIL: ${MY_EMAIL}
+    ports:
+      - "8983:8983"
+    volumes:
+      - solr_data:/var/solr/data
+    restart: unless-stopped
+    networks:
+      - proxy_net
+    entrypoint:
+      - docker-entrypoint.sh
+      - solr-precreate
+      - mycore
+
+volumes:
+  solr_data:
+    name: solr_data
+
+networks:
+  # This is a network we share with our reverse proxy
+  proxy_net:
+    name: proxy_net
+    # Won't be created or destroyed with docker-compose up|down
+    external: true
+
