@@ -1,6 +1,8 @@
 =solr-compose
 
-This is a docker-compose configuration for Solr
+This is a docker-compose configuration for Solr.
+
+I added the JTS package to support spatial data operations.
 
 Official documentation: https://hub.docker.com/_/solr
 

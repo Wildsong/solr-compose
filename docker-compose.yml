@@ -2,7 +2,6 @@ version: '3.7'
 services:
   solr:
     container_name: solr
-    image: solr:8.0
     environment:
       VIRTUAL_HOST: ${SOLR_VIRTUAL_HOST}
       VIRTUAL_PORT: 8983
@@ -21,6 +20,9 @@ services:
       - docker-entrypoint.sh
       - solr-precreate
       - mycore
+    build:
+      context: .
+      dockerfile: Dockerfile.solr
 
 volumes:
   solr_data:
