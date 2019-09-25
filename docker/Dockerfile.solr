@@ -1,0 +1,16 @@
+FROM solr:latest
+MAINTAINER Brian H Wilson "brian@wildsong.biz"
+
+# Add the Java Topology Suite to solr.
+
+# https://lucene.apache.org/solr/guide/6_6/spatial-search.html
+ENV JTS_VERSION 1.14.0
+
+ADD https://repo1.maven.org/maven2/com/vividsolutions/jts-core/${JTS_VERSION}/jts-core-${JTS_VERSION}.jar /opt/solr/server/solr-webapp/webapp/WEB-INF/lib/jts-core-${JTS_VERSION}.jar
+
+USER root
+RUN chmod go+r /opt/solr/server/solr-webapp/webapp/WEB-INF/lib/jts-core-${JTS_VERSION}.jar
+
+USER ${SOLR_USER}
+
+
